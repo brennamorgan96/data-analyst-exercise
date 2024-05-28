@@ -1,0 +1,12 @@
+----#1 - Alphabetically list all the country codes in the continent map table that appear more than once. For countries with no country code make them display as "N/A" and display them first in the list---
+SELECT
+    COALESCE(country_code, 'N/A') AS country_code  -- Replace NULL country codes with 'N/A'
+FROM
+    continent_map
+GROUP BY
+    country_code  -- Group by country_code to count occurrences
+HAVING
+    COUNT(*) > 1  -- Filter to only include country codes that appear more than once
+ORDER BY
+    country_code = 'N/A' DESC,  -- Sort 'N/A' (originally NULLs) first
+    country_code;  -- Then sort the remaining country codes alphabetically
